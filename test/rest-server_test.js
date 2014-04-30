@@ -28,7 +28,7 @@ exports.RestServer = {
 		});
 	},
 	'GET /api/posts': function (test) {
-		expected.message = 'Get items in posts';
+		expected.message = 'Query items in posts';
 		request({
 			uri: endpoint + '/api/posts',
 			method: 'GET'
@@ -38,7 +38,7 @@ exports.RestServer = {
 		});
 	},
 	'GET /api/posts/1': function (test) {
-		expected.message = 'Get item 1 in posts';
+		expected.message = 'Read item 1 in posts';
 		request({
 			uri: endpoint + '/api/posts/1',
 			method: 'GET'

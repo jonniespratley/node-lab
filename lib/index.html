@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>REST Server</title>
+
+	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+	<!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+	<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+	<![endif]-->
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+	<script>
+
+		var $rest = {
+			endpoint: "http://localhost:9090/api",
+			create: function (table, data) {
+				return this._send('POST', table, data);
+			},
+			read: function (table, data) {
+				return this._send('GET', table, data);
+			},
+			update: function (table, data) {
+				return this._send('PUT', table, data);
+			},
+			destroy: function (table, data) {
+				return this._send('DELETE', table, data);
+			},
+			query: function (table, params) {
+				return this._send('GET', table, params);
+			},
+			_send: function (type, table, data) {
+				var url;
+				url = this.endpoint + "/" + table;
+				if (data != null ? data.id : void 0 && type !== 'GET') {
+					url += '/' + (data != null ? data.id : void 0);
+				}
+				return $.ajax({
+					url: url,
+					type: type,
+					dataType: "json",
+					data: data
+				});
+			}
+		};
+
+
+
+		/**
+		 * Usage
+		 */
+
+		//Create
+		$rest.create('posts', {
+			title: 'New Post',
+			body: 'This is the post body.'
+		}).then(function (data) {
+			log(data);
+		}).fail(function (error) {
+			console.error(error)
+		});
+
+		//Read
+		$rest.read('posts', {id: 1}).then(function (data) {
+			log(data)
+		}).fail(function (error) {
+			console.error(error)
+		});
+
+		//Update
+		$rest.update('posts', {
+			id: 1,
+			title: 'Updated Post',
+			body: 'This is the post body.'
+		}).then(function (data) {
+			log(data)
+		}).fail(function (error) {
+			console.error(error)
+		});
+
+
+		//Delete
+		$rest.destroy('posts', {id: 1}).then(function (data) {
+			log(data)
+		}).fail(function (error) {
+			console.error(error)
+		});
+
+		//Query
+		$rest.query('posts', {title: 'test'}).then(function (data) {
+			log(data)
+		}).fail(function (error) {
+			console.error(error)
+		});
+
+
+		/**
+		 * Utility logger to html
+		 */
+		function log(what) {
+			var frag = $('<li/>').html(JSON.stringify(what));
+				frag.addClass('list-group-item');
+			$("#results").append(frag);
+			console.log(what);
+		}
+	</script>
+</head>
+<body>
+
+<div class="container">
+	<h1>REST Server</h1>
+
+	<p>This is the example on using client-side methods to access the RESTful server.</p>
+	<ul id="results" class="list-group"></ul>
+</div>
+
+</body>
+</html>
