@@ -8,7 +8,7 @@ var _server = new RestServer();
 
 var _db = new DbServer({
     models:{
-        'post': {
+        'posts': {
             title: String,
             slug: String,
             body: String,
@@ -25,5 +25,9 @@ var _db = new DbServer({
 
 console.log('Server running @ localhost:'+port);
 
-_db.findAll('posts')
-_db.findOne('posts', 1)
+
+
+_db.findAll('posts');
+_db.findOne('posts', 1);
+_db.destroy('posts', 1);
+_db.create('posts', {title: 'New Post', body: 'This is new'});
