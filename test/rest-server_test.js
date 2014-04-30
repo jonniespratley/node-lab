@@ -1,5 +1,5 @@
 'use strict';
-var request = require('request');
+var request = require( 'request' );
 //var RestServer = require('../lib/rest-server.js').RestServer;
 
 /**
@@ -19,50 +19,41 @@ exports.RestServer = {
 		done();
 	},
 	'GET /api': function (test) {
-		test.expect(1);
+		test.expect( 1 );
 
 		//send request
-		request(endpoint + '/api', function (error, response, body) {
-			test.deepEqual(JSON.parse(body), expected, 'should return RESTful message');
+		request( endpoint + '/api', function (error, response, body) {
+			test.deepEqual( JSON.parse( body ), expected, 'should return RESTful message' );
 			test.done();
-		});
+		} );
 	},
 	'GET /api/posts': function (test) {
 		expected.message = 'Query items in posts';
-		request({
+		request( {
 			uri: endpoint + '/api/posts',
 			method: 'GET'
 		}, function (error, response, body) {
-			test.deepEqual(JSON.parse(body), expected, 'should get all items');
+			test.deepEqual( JSON.parse( body ), expected, 'should get all items' );
 			test.done();
-		});
+		} );
 	},
 	'GET /api/posts/1': function (test) {
 		expected.message = 'Read item 1 in posts';
-		request({
+		request( {
 			uri: endpoint + '/api/posts/1',
 			method: 'GET'
 		}, function (error, response, body) {
-			test.deepEqual(JSON.parse(body), expected, 'should get 1 item');
+			test.deepEqual( JSON.parse( body ), expected, 'should get 1 item' );
 			test.done();
-		});
+		} );
 	},
 	'POST /api/posts': function (test) {
 		expected.message = 'Create item in posts';
-		request({
-			uri: endpoint + '/api/posts',
-			method: 'POST',
-			json: {
-				"title": "Post Title"
-			}
-		}, function (error, response, body) {
-			test.deepEqual(JSON.parse(body), expected, 'should create item');
-			test.done();
-		});
+
 	},
 	'PUT /api/posts/1': function (test) {
 		expected.message = 'Update item 1 in posts';
-		request({
+		request( {
 			uri: endpoint + '/api/posts/1',
 			method: 'PUT',
 			json: {
@@ -70,18 +61,18 @@ exports.RestServer = {
 				title: 'Updated title'
 			}
 		}, function (error, response, body) {
-			test.deepEqual(JSON.parse(body), expected, 'should should update item');
+			test.deepEqual( JSON.parse( body ), expected, 'should should update item' );
 			test.done();
-		});
+		} );
 	},
 	'DELETE /api/posts/1': function (test) {
 		expected.message = 'Delete item 1 in posts';
-		request({
+		request( {
 			uri: endpoint + '/api/posts/1',
 			method: 'DELETE'
 		}, function (error, response, body) {
-			test.deepEqual(JSON.parse(body), expected, 'should should delete item');
+			test.deepEqual( JSON.parse( body ), expected, 'should should delete item' );
 			test.done();
-		});
+		} );
 	}
 };

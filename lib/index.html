@@ -22,13 +22,13 @@
 	<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
     <script src="rest-client.js"></script>
 	<script>
-
+	var RestClient = new RestClient();
 		/**
 		 * Usage
 		 */
         //$rest.endpoint = 'http://localhost:9191';
 			//Create
-		$rest.create('posts', {
+		RestClient.create('posts', {
 			title: 'New Post',
 			body: 'This is the post body.'
 		}).then(function (data) {
@@ -38,14 +38,14 @@
 		});
 
 		//Read
-		$rest.read('posts', {id: 1}).then(function (data) {
+		RestClient.read('posts', {id: 1}).then(function (data) {
 			log(data)
 		}).fail(function (error) {
 			console.error(error)
 		});
 
 		//Update
-		$rest.update('posts', {
+		RestClient.update('posts', {
 			id: 1,
 			title: 'Updated Post',
 			body: 'This is the post body.'
@@ -57,14 +57,14 @@
 
 
 		//Delete
-		$rest.destroy('posts', {id: 1}).then(function (data) {
+		RestClient.destroy('posts', {id: 1}).then(function (data) {
 			log(data)
 		}).fail(function (error) {
 			console.error(error)
 		});
 
 		//Query
-		$rest.query('posts', {title: 'test'}).then(function (data) {
+		RestClient.query('posts', {title: 'test'}).then(function (data) {
 			log(data)
 		}).fail(function (error) {
 			console.error(error)
