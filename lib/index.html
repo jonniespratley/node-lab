@@ -55,12 +55,11 @@
 		};
 
 
-
 		/**
 		 * Usage
 		 */
 
-		//Create
+			//Create
 		$rest.create('posts', {
 			title: 'New Post',
 			body: 'This is the post body.'
@@ -109,7 +108,7 @@
 		 */
 		function log(what) {
 			var frag = $('<li/>').html(JSON.stringify(what));
-				frag.addClass('list-group-item');
+			frag.addClass('list-group-item');
 			$("#results").append(frag);
 			console.log(what);
 		}
